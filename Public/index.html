@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARCO MALIK & SYED-MD MINI BOT— Connect</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow top-left"></div>
+    <div class="bg-glow bottom-right"></div>
+
+    <div class="wrapper">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">𓆩⚡𓆪</div>
+                <div class="logo-text">
+                    <h1>MARCO MALIK & SYED-MD</h1>
+                    <span>MINI BOT — Public System</span>
+                </div>
+            </div>
+            <div class="header-badge">
+                <span class="dot"></span>
+                Online
+            </div>
+        </header>
+
+        <!-- Main card -->
+        <div class="card" id="mainCard">
+            <div class="card-header">
+                <h2>Connect Your WhatsApp</h2>
+                <p>Choose your preferred connection method below. Your session is private and secure.</p>
+            </div>
+
+            <!-- Tab switcher -->
+            <div class="tabs">
+                <button class="tab active" id="tabQR" onclick="switchTab('qr')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    QR Code
+                </button>
+                <button class="tab" id="tabPair" onclick="switchTab('pair')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l1.95-1.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Pairing Code
+                </button>
+            </div>
+
+            <!-- QR Panel -->
+            <div class="panel" id="panelQR">
+                <div class="qr-zone" id="qrZone">
+                    <div class="qr-placeholder" id="qrPlaceholder">
+                        <div class="qr-icon">⬜</div>
+                        <p>Click "Generate QR" to start</p>
+                    </div>
+                    <img id="qrImage" class="qr-img hidden" alt="QR Code" />
+                    <div class="qr-loader hidden" id="qrLoader">
+                        <div class="spinner"></div>
+                        <p id="statusText">Generating QR Code...</p>
+                    </div>
+                </div>
+
+                <div class="instructions">
+                    <div class="step"><span class="step-num">1</span><span>Open WhatsApp on your phone</span></div>
+                    <div class="step"><span class="step-num">2</span><span>Go to Settings → Linked Devices</span></div>
+                    <div class="step"><span class="step-num">3</span><span>Tap "Link a Device"</span></div>
+                    <div class="step"><span class="step-num">4</span><span>Scan the QR code above</span></div>
+                </div>
+
+                <button class="btn btn-primary" id="btnQR" onclick="startQR()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.2"/></svg>
+                    Generate QR Code
+                </button>
+            </div>
+
+            <!-- Pairing Panel -->
+            <div class="panel hidden" id="panelPair">
+                <div class="pair-zone" id="pairZone">
+                    <div class="pair-code-display hidden" id="pairCodeDisplay">
+                        <div class="pair-label">Your Pairing Code</div>
+                        <div class="pair-code" id="pairCode">----</div>
+                        <div class="pair-sub">Enter this code in WhatsApp → Linked Devices</div>
+                    </div>
+                    <div class="pair-placeholder" id="pairPlaceholder">
+                        <div class="pair-icon">📱</div>
+                        <p>Enter your number to get a pairing code</p>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="phoneInput">Phone Number (with country code)</label>
+                    <div class="input-row">
+                        <input type="tel" id="phoneInput" placeholder="923xxxxxxxxx" maxlength="15" autocomplete="off" />
+                    </div>
+                    <span class="input-hint">Example: 923001234567 (no + or spaces)</span>
+                </div>
+
+                <div class="instructions">
+                    <div class="step"><span class="step-num">1</span><span>Enter your WhatsApp number below</span></div>
+                    <div class="step"><span class="step-num">2</span><span>Click "Get Pairing Code"</span></div>
+                    <div class="step"><span class="step-num">3</span><span>Open WhatsApp → Linked Devices → Link with Phone Number</span></div>
+                    <div class="step"><span class="step-num">4</span><span>Enter the code shown here</span></div>
+                </div>
+
+                <button class="btn btn-primary" id="btnPair" onclick="startPairing()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72"/></svg>
+                    Get Pairing Code
+                </button>
+            </div>
+        </div>
+
+        <!-- Success Card -->
+        <div class="card success-card hidden" id="successCard">
+            <div class="success-icon">✅</div>
+            <h2>Connected Successfully!</h2>
+            <p>Your WhatsApp bot is now active and running.<br>You can close this tab — your bot will keep running.</p>
+            <div class="success-info">
+                <div class="info-row">
+                    <span>🤖 Bot Name</span>
+                    <strong>MARCO MALIK & SYED-MD MINI BOT</strong>
+                </div>
+                <div class="info-row">
+                    <span>✨ Status</span>
+                    <strong class="green">Active &amp; Running</strong>
+                </div>
+                <div class="info-row">
+                    <span>💬 Prefix</span>
+                    <strong>. (dot)</strong>
+                </div>
+            </div>
+            <p class="success-hint">Type <code>.help</code> in any WhatsApp chat to see all commands.</p>
+            <button class="btn btn-outline" onclick="resetUI()">
+                Connect Another Number
+            </button>
+        </div>
+
+        <!-- Error display -->
+        <div class="toast hidden" id="toast"></div>
+
+        <!-- Features section -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>100% Private</h3>
+                <p>Sessions are isolated. No one can see your number or history.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Response</h3>
+                <p>Lightning fast command processing with optimized handlers.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>80+ Commands</h3>
+                <p>Full feature set — stickers, games, group tools, AI, and more.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">♾️</div>
+                <h3>Unlimited Users</h3>
+                <p>Any number of users can connect independently at the same time.</p>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>𓆩 <strong>MARCO MALIK & SYED-MD MINI BOT</strong> 𓆪 &mdash; Public WhatsApp Bot System v9.0</p>
+        </footer>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
